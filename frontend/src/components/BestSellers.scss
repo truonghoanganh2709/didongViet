@@ -1,0 +1,164 @@
+@use '../styles/variables' as *;
+
+.best-sellers {
+  padding: 20px 0 40px;
+  background-color: $bg-light; // Đảm bảo nền đằng sau màu xám nhạt để các ô màu trắng nổi lên
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  // Khung chứa Tiêu đề
+  .section-header {
+    border-bottom: 2px solid #eaeaea;
+    margin-bottom: 20px;
+    display: flex;
+    
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+      text-transform: uppercase;
+      padding-bottom: 10px;
+      border-bottom: 2px solid $primary-color; // Gạch đít màu đỏ
+      margin-bottom: -2px; // Kéo vạch đỏ đè lên vạch xám
+      cursor: pointer;
+    }
+  }
+
+  // Lưới 5 sản phẩm
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+  }
+
+  // Từng ô Sản phẩm
+  .product-card {
+    background-color: $white;
+    border: 1px solid #f0f0f0;
+    border-radius: 12px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+      border-color: #e0e0e0;
+      transform: translateY(-2px);
+    }
+
+    // Phần Tag ở trên cùng
+    .card-tags {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 15px;
+      font-size: 10px;
+      font-weight: 600;
+
+      .tag-installment {
+        border: 1px solid $primary-color;
+        color: $primary-color;
+        padding: 3px 6px;
+        border-radius: 4px;
+      }
+
+      .tag-discount {
+        background-color: $primary-color;
+        color: $white;
+        padding: 3px 6px;
+        border-radius: 4px;
+      }
+    }
+
+    .card-image {
+      width: 100%;
+      aspect-ratio: 1/1; // Giữ khung ảnh vuông
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        max-width: 90%;
+        max-height: 90%;
+        object-fit: contain;
+      }
+    }
+
+    .card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: #333;
+      line-height: 1.4;
+      margin-bottom: 10px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      line-clamp: 2;
+      overflow: hidden;
+      min-height: 36px; // Ép chiều cao cố định để chữ ngắn/dài ko làm so le form
+    }
+
+    .card-price {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 12px;
+
+      .price-new {
+        color: $primary-color;
+        font-weight: 700;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .price-old {
+        color: #999;
+        font-size: 13px;
+        text-decoration: line-through;
+        font-weight: 500;
+      }
+    }
+
+    // Hộp khuyến mãi xám
+    .card-promo {
+      background-color: #f8f9fa;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 12px;
+      flex-grow: 1; // Đẩy phần rating xuống đáy nếu dư khoảng trống
+
+      p {
+        font-size: 11px;
+        color: #555;
+        margin-bottom: 4px;
+        line-height: 1.3;
+
+        &:last-child { margin-bottom: 0; }
+
+        strong {
+          color: $primary-color;
+        }
+      }
+    }
+
+    .card-rating {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #333;
+
+      .stars {
+        letter-spacing: -2px;
+        .star-empty { color: #ccc; }
+      }
+    }
+  }
+}

@@ -1,0 +1,148 @@
+@use '../styles/variables' as *;
+
+.footer {
+  border-top: 1px solid #eaeaea;
+  background-color: $white;
+  font-size: 13px;
+  color: #333;
+  text-align: left; // Cưỡng ép toàn bộ chữ trong Footer căn thẳng hàng bên trái
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  // --- PHẦN 1: NỀN TRẮNG ---
+  &__main {
+    padding: 40px 0;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .footer-col {
+    .footer-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #000;
+    }
+
+    .mt-20 {
+      margin-top: 25px;
+    }
+
+    .footer-links {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+
+      li {
+        margin-bottom: 10px;
+        color: #555;
+        cursor: pointer;
+        transition: color 0.2s;
+        &:hover { color: $primary-color; }
+      }
+    }
+
+    // Tổng đài hỗ trợ
+    .hotline-box {
+      p {
+        margin-bottom: 8px;
+        color: #555;
+        strong { color: $primary-color; font-size: 14px; }
+        span { font-size: 12px; color: #888; }
+      }
+    }
+
+    // Phương thức thanh toán
+    .payment-methods {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      img { height: 24px; object-fit: contain; border: 1px solid #f0f0f0; border-radius: 4px; padding: 2px 5px; }
+    }
+
+    // Kết nối mạng xã hội
+    .social-icons {
+      display: flex;
+      gap: 10px;
+      img { width: 32px; height: 32px; cursor: pointer; transition: opacity 0.2s; &:hover{opacity: 0.8;} }
+    }
+
+    // Đối tác chiến lược
+    .partners {
+      display: flex;
+      gap: 10px;
+      img { height: 35px; border-radius: 4px; }
+    }
+
+    // Khối Tải App mua sắm
+    .download-text {
+      font-size: 12px;
+      margin: 15px 0 10px;
+      color: #555;
+    }
+    .download-app {
+      display: flex;
+      gap: 10px;
+      .qr-img { width: 70px; height: 70px; border: 1px solid #eaeaea; border-radius: 5px; padding: 2px;}
+      .app-buttons {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        img { height: 32px; cursor: pointer; }
+      }
+    }
+  }
+
+  // --- PHẦN 2: NỀN XÁM (SEO & BẢN QUYỀN) ---
+  &__bottom {
+    background-color: #f8f9fa;
+    padding: 30px 0;
+  }
+
+  .seo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+    margin-bottom: 20px;
+
+    .seo-col p {
+      margin-bottom: 8px;
+      color: #555;
+      font-size: 12px;
+      cursor: pointer;
+      &:hover { color: $primary-color; }
+    }
+  }
+
+  .footer-divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 20px 0;
+  }
+
+  .company-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    .info-text {
+      flex: 1;
+      p { font-size: 11px; color: #666; line-height: 1.6; margin-bottom: 4px; }
+    }
+
+    .certificates {
+      display: flex;
+      gap: 15px;
+      img { height: 35px; object-fit: contain; }
+    }
+  }
+}
