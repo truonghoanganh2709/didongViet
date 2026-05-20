@@ -1,156 +1,192 @@
-@use '../styles/variables' as *;
-
+/* --- TOÀN BỘ HEADER --- */
 .header {
-  position: relative; // Thiết lập mốc không gian cho Header
-  z-index: 9999;      // Ép Header nổi lên lớp cao nhất, đè lên mọi Banner ở dưới
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #d70018; 
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  font-family: Arial, sans-serif;
 
-  &__top {
-    background-color: #b80011;
-    color: $white;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  .header-top {
+    background-color: #bd0014; 
+    padding: 8px 0;
     font-size: 12px;
-    padding: 6px 0;
-    
-    .container {
+
+    .flex-center {
       display: flex;
       justify-content: center;
-      gap: 40px;
-      font-weight: 500;
+      gap: 30px;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        i { font-size: 14px; }
+      }
     }
   }
 
-  &__main {
-    background-color: $primary-color;
+  .header-main {
     padding: 12px 0;
 
-    &-content {
+    .header-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-      gap: 12px;
+      gap: 20px;
     }
 
-    .logo a {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      color: $white;
-      
-      .logo-main {
+    .logo-box {
+      .logo-text {
         font-size: 24px;
-        font-weight: 800;
-        line-height: 1;
+        font-weight: 900;
+        margin: 0;
+        letter-spacing: -0.5px;
       }
-      .logo-sub {
-        font-size: 8px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        margin-top: 2px;
-        opacity: 0.9;
+      .slogan {
+        font-size: 9px;
+        margin: 0;
+        letter-spacing: 1.2px;
+        font-weight: bold;
       }
     }
 
-    // Khu vực danh mục phải là relative để làm mốc cho cái menu lơ lửng
-    .category-area {
+    /* CSS CHO KHỐI DANH MỤC THẢ XUỐNG */
+    .category-wrapper {
       position: relative;
-
-      .btn-category {
+      
+      .category-btn {
+        background-color: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: #fff;
+        padding: 10px 15px;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         gap: 8px;
-        background-color: rgba(255, 255, 255, 0.2); 
-        border: none;
-        color: $white;
-        padding: 8px 16px;
-        border-radius: 10px;
         cursor: pointer;
-        font-weight: 600;
-        font-size: 13px;
-        transition: 0.2s;
+        font-weight: bold;
+        font-size: 14px;
+        transition: all 0.2s;
 
-        &:hover, &.active {
-          background-color: rgba(255, 255, 255, 0.35);
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.3);
         }
       }
 
-      // Đã sửa lại đúng tên class và lồng đúng vị trí!
-      .header__dropdown-menu {
+      .category-dropdown {
         position: absolute;
-        top: calc(100% + 15px); // Cách nút danh mục 15px xuống dưới
+        top: calc(100% + 15px); 
         left: 0;
-        width: 240px;
-        background-color: $white;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); // Đổ bóng cho nổi hẳn lên
-        padding: 8px 0;
-        z-index: 999; // Lên đỉnh xã hội, đè lên mọi thứ ở dưới (bên trong header)
+        background: #fff;
+        width: 250px;
+        border-radius: 12px;
+        box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        padding: 10px 0;
+        z-index: 1001;
+
+        /* MŨI TÊN TRẮNG CHỈ LÊN */
+        &::before {
+          content: '';
+          position: absolute;
+          top: -8px;
+          left: 30px;
+          border-left: 8px solid transparent;
+          border-right: 8px solid transparent;
+          border-bottom: 8px solid #fff;
+        }
+
+        /* 🌟 ĐÂY LÀ "CẦU NỐI TÀNG HÌNH" ĐỂ FIX LỖI TRƯỢT CHUỘT MẤT MENU 🌟 */
+        &::after {
+          content: '';
+          position: absolute;
+          top: -20px; /* Kéo ngược lên trên để lấp đầy khoảng không 15px */
+          left: 0;
+          width: 100%;
+          height: 20px;
+          background: transparent; /* Trong suốt không nhìn thấy được */
+        }
 
         ul {
           list-style: none;
+          padding: 0; 
           margin: 0;
-          padding: 0;
-          
-          li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-            transition: all 0.15s ease;
 
-            .menu-item-left {
+          li a {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            padding: 10px 15px;
+            color: #444;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 600;
+            border-bottom: 1px solid #f9f9f9;
+            transition: all 0.2s;
+
+            &:hover {
+              background-color: #f8f9fa; 
+              color: #d70018;
+            }
+
+            .cat-left {
               display: flex;
               align-items: center;
-              gap: 10px;
-              
-              .icon {
-                font-size: 16px;
+              gap: 12px;
+
+              i {
                 width: 20px;
                 text-align: center;
+                font-size: 16px;
+                
+                &.icon-blue { color: #4285F4; }
+                &.icon-cyan { color: #00BCD4; }
+                &.icon-green { color: #8BC34A; }
+                &.icon-gray { color: #757575; }
+                &.icon-purple { color: #9C27B0; }
+                &.icon-red { color: #E53935; }
               }
             }
 
             .arrow {
-              color: #ccc;
-              font-size: 16px;
-            }
-
-            &:hover {
-              background-color: #fce8e8;
-              color: $primary-color;
-              
-              .arrow {
-                color: $primary-color;
-              }
+              font-size: 11px;
+              color: #bbb;
             }
           }
         }
       }
     }
 
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background-color: $white;
-      border-radius: 25px;
-      padding: 4px 4px 4px 18px;
-      width: 28%; 
+    /* CSS CHO KHU VỰC TÌM KIẾM */
+    .search-container {
+      flex: 1;
+      position: relative;
+      max-width: 400px;
       
       input {
         width: 100%;
+        padding: 12px 20px;
+        border-radius: 20px;
         border: none;
         outline: none;
-        font-size: 13px;
+        background: #fff;
+        font-size: 14px;
         color: #333;
       }
-      
+
       .search-btn {
-        background-color: #fce8e8; 
+        position: absolute;
+        right: 4px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: #f1f1f1;
         border: none;
         width: 32px;
         height: 32px;
@@ -158,41 +194,107 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        color: #333;
         cursor: pointer;
-        color: $primary-color;
-        font-size: 13px;
         transition: 0.2s;
+        
+        &:hover { background: #e0e0e0; }
+      }
 
-        &:hover {
-          background-color: #fbd3d3;
+      .search-suggestions {
+        position: absolute;
+        top: calc(100% + 10px);
+        left: 0;
+        width: 100%;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+        padding: 15px;
+        z-index: 1001;
+        color: #333;
+
+        /* Cầu nối tàng hình cho ô tìm kiếm (tránh lỗi tương tự) */
+        &::after {
+          content: '';
+          position: absolute;
+          top: -15px;
+          left: 0;
+          width: 100%;
+          height: 15px;
+          background: transparent;
+        }
+
+        h4 { margin: 0 0 12px 0; font-size: 14px; color: #666;}
+        
+        .keywords-list {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+
+          .keyword-item {
+            background: #f1f1f1;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-size: 12.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: 0.2s;
+            
+            &:hover { background: #fee2e2; color: #d70018;}
+          }
+        }
+
+        .product-list {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .hint-product-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+            transition: 0.2s;
+
+            &:hover { border-color: #d70018; background: #fffdfd; box-shadow: 0 2px 8px rgba(215,0,24,0.1);}
+
+            img { width: 50px; height: 50px; object-fit: contain; }
+            .prod-info {
+              .prod-name { font-size: 13.5px; font-weight: 600; margin: 0 0 5px 0; color: #333; line-height: 1.4;}
+              .prod-price { font-size: 14px; color: #d70018; font-weight: 800; margin: 0;}
+            }
+          }
         }
       }
     }
 
-    .header-actions {
+    .header-utils {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 15px;
 
-      .action-item {
+      .util-item {
         display: flex;
         align-items: center;
-        gap: 6px;
-        color: $white;
+        gap: 8px;
+        font-size: 12px;
         cursor: pointer;
         transition: opacity 0.2s;
 
-        &:hover { opacity: 0.85; }
-        .action-icon { font-size: 18px; }
-        
-        .action-text {
+        &:hover { opacity: 0.8; }
+
+        i { font-size: 22px; }
+
+        .util-text {
           display: flex;
           flex-direction: column;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1.2;
-
-          .sub-text { font-size: 11px; opacity: 0.85; }
+          line-height: 1.3;
+          
+          strong { font-size: 13px; font-weight: 900;}
         }
       }
     }

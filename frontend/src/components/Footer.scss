@@ -1,11 +1,8 @@
-@use '../styles/variables' as *;
-
-.footer {
+.main-footer {
+  background-color: #fff;
   border-top: 1px solid #eaeaea;
-  background-color: $white;
-  font-size: 13px;
+  font-family: Arial, sans-serif;
   color: #333;
-  text-align: left; // Cưỡng ép toàn bộ chữ trong Footer căn thẳng hàng bên trái
 
   .container {
     max-width: 1200px;
@@ -13,136 +10,179 @@
     padding: 0 15px;
   }
 
-  // --- PHẦN 1: NỀN TRẮNG ---
-  &__main {
+  /* --- TẦNG 1 --- */
+  .footer-top {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
     padding: 40px 0;
-  }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-  }
+    @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+    @media (max-width: 576px) { grid-template-columns: 1fr; gap: 20px;}
 
-  .footer-col {
-    .footer-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 15px;
-      color: #000;
-    }
-
-    .mt-20 {
-      margin-top: 25px;
-    }
-
-    .footer-links {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-
-      li {
-        margin-bottom: 10px;
-        color: #555;
-        cursor: pointer;
-        transition: color 0.2s;
-        &:hover { color: $primary-color; }
+    .footer-col {
+      h4 {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 0 0 15px 0;
+        color: #111;
+        
+        &.mt-15 { margin-top: 25px; }
       }
-    }
 
-    // Tổng đài hỗ trợ
-    .hotline-box {
-      p {
-        margin-bottom: 8px;
-        color: #555;
-        strong { color: $primary-color; font-size: 14px; }
-        span { font-size: 12px; color: #888; }
+      ul {
+        list-style: none;
+        padding: 0; margin: 0;
+
+        li {
+          margin-bottom: 10px;
+          font-size: 13px;
+
+          a {
+            color: #333;
+            text-decoration: none;
+            transition: color 0.2s;
+            &:hover { color: #d70018; }
+          }
+        }
       }
-    }
 
-    // Phương thức thanh toán
-    .payment-methods {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      img { height: 24px; object-fit: contain; border: 1px solid #f0f0f0; border-radius: 4px; padding: 2px 5px; }
-    }
+      .hotline-list {
+        li {
+          font-size: 13px;
+          margin-bottom: 8px;
+          strong { color: #d70018; font-size: 14px; }
+        }
+      }
 
-    // Kết nối mạng xã hội
-    .social-icons {
-      display: flex;
-      gap: 10px;
-      img { width: 32px; height: 32px; cursor: pointer; transition: opacity 0.2s; &:hover{opacity: 0.8;} }
-    }
-
-    // Đối tác chiến lược
-    .partners {
-      display: flex;
-      gap: 10px;
-      img { height: 35px; border-radius: 4px; }
-    }
-
-    // Khối Tải App mua sắm
-    .download-text {
-      font-size: 12px;
-      margin: 15px 0 10px;
-      color: #555;
-    }
-    .download-app {
-      display: flex;
-      gap: 10px;
-      .qr-img { width: 70px; height: 70px; border: 1px solid #eaeaea; border-radius: 5px; padding: 2px;}
-      .app-buttons {
+      .payment-methods {
         display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        img { height: 32px; cursor: pointer; }
+        flex-wrap: wrap;
+        gap: 8px;
+        
+        img {
+          height: 22px;
+          width: auto;
+          border: 1px solid #eaeaea;
+          border-radius: 4px;
+          padding: 2px 4px;
+        }
+      }
+
+      .social-links {
+        display: flex;
+        gap: 12px;
+        
+        .social-icon {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 32px;
+          height: 32px;
+          border-radius: 50%;
+          color: #fff;
+          font-size: 16px;
+          text-decoration: none;
+
+          &.zalo img { width: 100%; height: 100%; object-fit: cover; border-radius: 50%;}
+          &.fb { background-color: #1877F2; }
+          &.ig { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
+          &.yt { background-color: #FF0000; }
+          &.tt { background-color: #000000; }
+        }
+      }
+
+      .partners {
+        display: flex;
+        gap: 10px;
+        .partner-box {
+          background: #333;
+          color: #fff;
+          font-size: 11px;
+          font-weight: bold;
+          padding: 6px 12px;
+          border-radius: 4px;
+        }
+      }
+
+      .app-download {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+
+        .qr-code img { width: 60px; height: 60px; border: 1px solid #ddd; padding: 2px; border-radius: 4px;}
+        .app-buttons {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+          img { height: 27px; width: auto; cursor: pointer; }
+        }
       }
     }
   }
 
-  // --- PHẦN 2: NỀN XÁM (SEO & BẢN QUYỀN) ---
-  &__bottom {
+  /* --- TẦNG 2 --- */
+  .footer-middle {
     background-color: #f8f9fa;
-    padding: 30px 0;
-  }
+    padding: 20px 0;
+    border-top: 1px solid #eaeaea;
+    border-bottom: 1px solid #eaeaea;
 
-  .seo-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin-bottom: 20px;
+    .seo-links-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
 
-    .seo-col p {
-      margin-bottom: 8px;
-      color: #555;
-      font-size: 12px;
-      cursor: pointer;
-      &:hover { color: $primary-color; }
+      @media (max-width: 992px) { grid-template-columns: repeat(2, 1fr); }
+      @media (max-width: 576px) { grid-template-columns: 1fr; }
+
+      .seo-col {
+        font-size: 12.5px;
+        color: #777;
+        line-height: 1.8;
+        
+        a {
+          color: #555;
+          text-decoration: none;
+          margin-right: 5px;
+          margin-left: 5px;
+          &:first-child { margin-left: 0; font-weight: bold; color: #444; display: block; margin-bottom: 4px;}
+          &:hover { color: #d70018; }
+        }
+      }
     }
   }
 
-  .footer-divider {
-    border: none;
-    border-top: 1px solid #e0e0e0;
-    margin: 20px 0;
-  }
+  /* --- TẦNG 3 --- */
+  .footer-bottom {
+    padding: 20px 0;
+    background-color: #f8f9fa;
 
-  .company-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 20px;
-
-    .info-text {
-      flex: 1;
-      p { font-size: 11px; color: #666; line-height: 1.6; margin-bottom: 4px; }
-    }
-
-    .certificates {
+    .company-info-wrap {
       display: flex;
-      gap: 15px;
-      img { height: 35px; object-fit: contain; }
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+
+      @media (max-width: 768px) {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .company-text {
+        font-size: 11px;
+        color: #666;
+        line-height: 1.6;
+        
+        p { margin: 0 0 5px 0; }
+      }
+
+      .company-badges {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        img { height: 25px; width: auto; }
+      }
     }
   }
 }

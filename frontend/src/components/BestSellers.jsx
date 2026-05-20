@@ -1,109 +1,94 @@
-import React from 'react'
-import './BestSellers.scss'
+/* eslint-disable react/prop-types */
+/* eslint-disable react/no-array-index-key */
+import React, { useRef, useState } from 'react';
+import { Link } from 'react-router-dom'; // Đã import Link
+import './BestSellers.scss';
 
-const BestSellers = () => {
-  // Dữ liệu 5 sản phẩm demo
-  const products = [
-    {
-      id: 1,
-      name: 'iPhone 17 Pro Max 256GB Chính Hãng',
-      img: '/images/bs-1.png',
-      newPrice: '36.990.000 ₫',
-      oldPrice: '37.990.000 ₫',
-      discount: '100%',
-      rating: '4.00'
-    },
-    {
-      id: 2,
-      name: 'AirPods 4 (Phiên bản chống ồn chủ động)',
-      img: '/images/bs-2.png',
-      newPrice: '3.090.000 ₫',
-      oldPrice: '3.490.000 ₫',
-      discount: '3%',
-      rating: '4.00'
-    },
-    {
-      id: 3,
-      name: 'iPhone 17 256GB Chính Hãng',
-      img: '/images/bs-3.png',
-      newPrice: '25.490.000 ₫',
-      oldPrice: '31.990.000 ₫',
-      discount: '5%',
-      rating: '4.00'
-    },
-    {
-      id: 4,
-      name: 'iPhone 17 Plus 256GB Chính Hãng',
-      img: '/images/bs-4.png',
-      newPrice: '25.490.000 ₫',
-      oldPrice: '31.990.000 ₫',
-      discount: '5%',
-      rating: '4.00'
-    },
-    {
-      id: 5,
-      name: 'Loa Bluetooth Edifier Hecate',
-      img: '/images/bs-5.png',
-      newPrice: '260.000 ₫',
-      oldPrice: '420.000 ₫',
-      discount: '7%',
-      rating: '4.00'
-    }
-  ]
+const BestSellers = ({ products }) => {
+  const sliderRef = useRef(null);
+
+  // --- LOGIC: KÉO THẢ CHUỘT ---
+  const [isDragging, setIsDragging] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftPos, setScrollLeftPos] = useState(0);
+
+  const handleMouseDown = (e) => {
+    setIsDragging(true);
+    setStartX(e.pageX - sliderRef.current.offsetLeft);
+    setScrollLeftPos(sliderRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => setIsDragging(false);
+  const handleMouseUp = () => setIsDragging(false);
+
+  const handleMouseMove = (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - sliderRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5; 
+    sliderRef.current.scrollLeft = scrollLeftPos - walk;
+  };
+
+  if (!products || products.length === 0) return null;
 
   return (
     <section className="best-sellers">
       <div className="container">
         
-        {/* Phần Tiêu đề (Đã gỡ bỏ tab Tết) */}
         <div className="section-header">
           <h2 className="title">SẢN PHẨM BÁN CHẠY NHẤT</h2>
         </div>
 
-        {/* Khối danh sách sản phẩm (CSS Grid 5 cột) */}
-        <div className="product-grid">
-          {products.map(product => (
-            <div className="product-card" key={product.id}>
+        <div className="slider-wrapper">
+          <div 
+            className={`product-track ${isDragging ? 'dragging' : ''}`}
+            ref={sliderRef}
+            onMouseDown={handleMouseDown}
+            onMouseLeave={handleMouseLeave}
+            onMouseUp={handleMouseUp}
+            onMouseMove={handleMouseMove}
+          >
+            {products.map(product => (
               
-              {/* Tag Trả góp & Giảm giá */}
-              <div className="card-tags">
-                <span className="tag-installment">Trả góp 0%</span>
-                <span className="tag-discount">⬇ {product.discount}</span>
-              </div>
-
-              {/* Hình ảnh */}
-              <div className="card-image">
-                <img src={product.img} alt={product.name} />
-              </div>
-
-              {/* Tên & Giá */}
-              <h3 className="card-name">{product.name}</h3>
-              <div className="card-price">
-                <span className="price-new">{product.newPrice}</span>
-                <span className="price-old">{product.oldPrice}</span>
-              </div>
-
-              {/* Hộp Khuyến mãi xám */}
-              <div className="card-promo">
-                <p>15.1 - 28.2 giảm thêm <strong>1tr</strong></p>
-                <p>Thu cũ trợ giá đến <strong>3tr</strong></p>
-              </div>
-
-              {/* Đánh giá Sao */}
-              <div className="card-rating">
-                <div className="stars">
-                  ⭐⭐⭐⭐<span className="star-empty">☆</span> 
+              // THẺ LINK BAO BỌC TOÀN BỘ SẢN PHẨM ĐỂ CLICK CHUYỂN TRANG
+              <Link to={`/product/${product.id}`} className="product-card" key={product.id} style={{ textDecoration: 'none' }}>
+                
+                <div className="card-tags">
+                  <span className="tag-installment">Trả góp 0%</span>
+                  <span className="tag-discount">⬇ {product.discount || '5%'}</span>
                 </div>
-                <span className="score">{product.rating}</span>
-              </div>
-              
-            </div>
-          ))}
+
+                <div className="card-image">
+                  <img src={product.img} alt={product.name} />
+                </div>
+
+                <h3 className="card-name">{product.name}</h3>
+                
+                <div className="card-price">
+                  <span className="price-new">{product.price}</span>
+                  <span className="price-old">{product.oldPrice}</span>
+                </div>
+
+                <div className="card-promo">
+                  <p>15.1 - 28.2 giảm thêm <strong>1tr</strong></p>
+                  <p>Thu cũ trợ giá đến <strong>3tr</strong></p>
+                </div>
+
+                <div className="card-rating">
+                  <div className="stars">
+                    ⭐⭐⭐⭐<span className="star-empty">☆</span> 
+                  </div>
+                  <span className="score">{product.rating || '4.00'}</span>
+                </div>
+                
+              </Link>
+            ))}
+          </div>
         </div>
 
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default BestSellers
+export default BestSellers;

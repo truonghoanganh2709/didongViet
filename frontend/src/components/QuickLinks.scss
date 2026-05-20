@@ -1,72 +1,73 @@
-@use '../styles/variables' as *;
-
 .quick-links {
-  padding: 10px 0 30px 0; // Khoảng cách với Banner ở trên
+  padding: 15px 0;
 
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 15px;
-  }
-
-  &__wrapper {
-    background-color: $white;
+    background: #ffffff;
     border-radius: 12px;
     padding: 20px 15px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-
-    // Tuyệt chiêu CSS Grid chia đúng 13 cột bằng nhau
-    display: grid;
-    grid-template-columns: repeat(13, 1fr);
-    gap: 20px 10px; // 20px khoảng cách hàng, 10px khoảng cách cột
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
   }
 
-  &__item {
+  .links-grid {
+    display: grid;
+    /* Ép hiển thị 12 cột bằng nhau */
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px 10px; /* Khoảng cách hàng: 20px, Khoảng cách cột: 10px */
+    
+    /* Responsive cho màn hình nhỏ hơn */
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(8, 1fr);
+    }
+    @media (max-width: 768px) {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    @media (max-width: 480px) {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .link-item {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-decoration: none;
     text-align: center;
-    cursor: pointer;
     transition: transform 0.2s;
 
-    // Hiệu ứng hover nhấc icon lên 1 tí và đổ bóng đỏ
     &:hover {
-      transform: translateY(-4px);
-      .icon-box {
-        box-shadow: 0 4px 10px rgba(234, 53, 70, 0.3);
+      transform: translateY(-4px); /* Hover thì nảy lên một chút */
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      background-color: #ffbb00; /* Màu nền vàng/vàng kim mới */
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      padding: 6px;
+      box-shadow: 0 4px 8px rgba(255, 187, 0, 0.2); /* Đổ bóng nhẹ cùng tone màu vàng */
+
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
       }
     }
-  }
 
-  .icon-box {
-    width: 52px;
-    height: 52px;
-    background-color: #f63c4d; // Màu nền đỏ bo cong đặc trưng
-    border-radius: 14px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 8px;
-    padding: 6px; // Lùi vào 6px để ảnh vừa vặn đẹp nhất
-    transition: box-shadow 0.2s;
-
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain; // Đảm bảo ảnh không bị méo
-      // ĐÃ XÓA dòng lệnh filter biến ảnh thành bóng đen/trắng!
+    .link-name {
+      font-size: 11.5px;
+      color: #333;
+      line-height: 1.3;
+      font-weight: 500;
+      /* Ép text thành 2 dòng, nếu dài quá thì cắt thành dấu ... */
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2; /* Thêm dòng chuẩn chung này để VS Code hết báo vàng */
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
-  }
-
-  .link-name {
-    font-size: 11px;
-    font-weight: 500;
-    color: #333;
-    line-height: 1.3;
-    display: -webkit-box;
-    -webkit-line-clamp: 2; // Tự động cắt nếu tên quá dài thành 2 dòng
-    -webkit-box-orient: vertical;
-    line-clamp: 2;
-    overflow: hidden;
   }
 }

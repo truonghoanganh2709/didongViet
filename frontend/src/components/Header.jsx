@@ -1,136 +1,214 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import './Header.scss'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import './Header.scss';
+import { allProducts, trendingKeywords } from '../data/products';
 
 const Header = () => {
-  // ĐÂY LÀ "CÔNG TẮC": Quản lý trạng thái Ẩn/Hiện của menu
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [isCategoryOpen, setIsCategoryOpen] = useState(false);
 
-  // Hàm này sẽ chạy khi bạn bấm vào nút Danh mục
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const categories = [
-    { icon: '📱', name: 'Điện thoại' },
-    { icon: '💻', name: 'Tablet' },
-    { icon: '🍏', name: 'Mac' },
-    { icon: '🔁', name: 'Máy cũ giá rẻ' },
-    { icon: '🔌', name: 'Phụ kiện' },
-    { icon: '⌚', name: 'Đồng hồ' },
-    { icon: '🎧', name: 'Âm thanh' },
-    { icon: '📺', name: 'Điện máy, Gia dụng' },
-    { icon: '🍎', name: 'Apple (AAR)' },
-    { icon: '🚲', name: 'Xe điện' },
-    { icon: '🖥️', name: 'Màn hình, Tivi' },
-    { icon: '🔄', name: 'Thu cũ đổi mới' },
-    { icon: '🏷️', name: 'Khuyến mãi' },
-    { icon: '📰', name: 'Công nghệ 24H' },
-  ]
+  const filteredProducts = allProducts.filter(prod => 
+    prod.name.toLowerCase().includes(searchTerm.toLowerCase())
+  ).slice(0, 5); 
 
   return (
     <header className="header">
-      {/* Thanh đỏ phụ ở trên cùng */}
-      <div className="header__top">
-        <div className="container">
-          <span>🔄 Thu Cũ Đổi Mới</span>
-          <span>💲 Trả Trước 0đ Trả Góp 0%</span>
-          <span>🛡️ Bảo Hành 100% Đổi Mới</span>
+      
+      <div className="header-top">
+        <div className="container flex-center">
+          <span><i className="fa-solid fa-arrows-rotate"></i> Thu Cũ Đổi Mới</span>
+          <span><i className="fa-solid fa-money-bill-wave"></i> Trả Trước 0đ Trả Góp 0%</span>
+          <span><i className="fa-solid fa-shield-halved"></i> Bảo Hành 100% Đổi Mới</span>
         </div>
       </div>
 
-      {/* Thanh đỏ chính */}
-      <div className="header__main">
-        <div className="container header__main-content">
+      <div className="header-main">
+        <div className="container header-content">
           
-          {/* 1. Logo */}
-          <div className="logo">
-            <Link to="/">
-              <span className="logo-main">didongviet.vn</span>
-              <span className="logo-sub">CHUYỂN GIAO GIÁ TRỊ VƯỢT TRỘI</span>
+          <div className="logo-box">
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <h1 className="logo-text">didongviet.vn</h1>
+              <p className="slogan">CHUYỂN GIAO GIÁ TRỊ VƯỢT TRỘI</p>
             </Link>
           </div>
 
-          {/* 2. KHU VỰC DANH MỤC */}
-          <div className="category-area">
-            {/* Nút bấm đã được gắn sự kiện onClick */}
-            <button 
-              className={`btn-category ${isMenuOpen ? 'active' : ''}`} 
-              onClick={toggleMenu}
-            >
-              <span className="icon">🎛️</span>
-              <span className="text">Danh mục</span>
+          <div 
+            className="category-wrapper"
+            onMouseEnter={() => setIsCategoryOpen(true)}
+            onMouseLeave={() => setIsCategoryOpen(false)}
+          >
+            <button className="category-btn">
+              <i className="fa-solid fa-bars"></i>
+              <span>Danh mục</span>
             </button>
-
-            {/* Bảng Menu xổ xuống (Chỉ hiện ra khi isMenuOpen == true) */}
-            {isMenuOpen && (
-              <div className="header__dropdown-menu">
+            
+            {/* Menu thả xuống ĐÃ ĐƯỢC CHỈNH SỬA GIỐNG MENU TRÁI */}
+            {isCategoryOpen && (
+              <div className="category-dropdown">
                 <ul>
-                  {categories.map((item, index) => (
-                    <li key={index}>
-                      <div className="menu-item-left">
-                        <span className="icon">{item.icon}</span>
-                        <span className="text">{item.name}</span>
-                      </div>
-                      <span className="arrow">›</span>
-                    </li>
-                  ))}
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-mobile-screen icon-blue"></i> Điện thoại</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-tablet-screen-button icon-cyan"></i> Tablet</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-brands fa-apple icon-green"></i> Mac</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-rotate icon-blue"></i> Máy cũ giá rẻ</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-plug icon-gray"></i> Phụ kiện</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-stopwatch icon-purple"></i> Đồng hồ</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-headphones icon-gray"></i> Âm thanh</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-tv icon-blue"></i> Điện máy, Gia dụng</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-brands fa-apple icon-red"></i> Apple (AAR)</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="#">
+                      <div className="cat-left"><i className="fa-solid fa-motorcycle icon-red"></i> Xe điện</div>
+                      <i className="fa-solid fa-chevron-right arrow"></i>
+                    </Link>
+                  </li>
                 </ul>
               </div>
             )}
           </div>
-          
-          {/* 3. Thanh tìm kiếm */}
-          <div className="search-bar">
-            <input type="text" placeholder="Bạn muốn tìm gì..." />
-            <button className="search-btn">🔍</button>
+
+          <div className="search-container">
+            <input 
+              type="text" 
+              placeholder="Bạn muốn tìm gì..." 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onFocus={() => setIsSearchOpen(true)}
+              onBlur={() => setTimeout(() => setIsSearchOpen(false), 300)} 
+            />
+            <button className="search-btn">
+              <i className="fa-solid fa-magnifying-glass"></i>
+            </button>
+
+            {isSearchOpen && (
+              <div className="search-suggestions">
+                {searchTerm.trim() === '' ? (
+                  <div className="trending-section">
+                    <h4>Từ khóa nổi bật</h4>
+                    <div className="keywords-list">
+                      {trendingKeywords.map((keyword, index) => (
+                        <span key={index} className="keyword-item" onClick={() => setSearchTerm(keyword)}>
+                          <i className="fa-solid fa-magnifying-glass"></i> {keyword}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="live-search-results">
+                    {filteredProducts.length === 0 ? (
+                      <div className="no-results">
+                        <i className="fa-regular fa-face-frown" style={{marginRight: '8px', fontSize: '18px'}}></i>
+                        Không tìm thấy sản phẩm nào cho "{searchTerm}"
+                      </div>
+                    ) : (
+                      <div className="product-hints">
+                        <h4>Sản phẩm gợi ý</h4>
+                        <div className="product-list">
+                          {filteredProducts.map((prod, index) => (
+                            <Link to={`/product/${prod.id}`} key={index} className="hint-product-item" style={{ textDecoration: 'none' }}>
+                              <img src={prod.img} alt={prod.name} />
+                              <div className="prod-info">
+                                <p className="prod-name">{prod.name}</p>
+                                <p className="prod-price">{prod.price}</p>
+                              </div>
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
           </div>
-          
-          {/* 4. Cụm 5 nút tiện ích */}
-          <div className="header-actions">
-            <div className="action-item">
-              <span className="action-icon">📞</span>
-              <div className="action-text">
+
+          <div className="header-utils">
+            <div className="util-item">
+              <i className="fa-solid fa-phone"></i>
+              <div className="util-text">
                 <span>Đặt hàng</span>
-                <span className="sub-text">1800 6018</span>
+                <strong>1800 6018</strong>
               </div>
             </div>
-
-            <div className="action-item">
-              <span className="action-icon">🏪</span>
-              <div className="action-text">
+            <div className="util-item">
+              <i className="fa-solid fa-store"></i>
+              <div className="util-text">
                 <span>Cửa hàng</span>
-                <span className="sub-text">gần bạn</span>
+                <span>gần bạn</span>
               </div>
             </div>
-
-            <div className="action-item">
-              <span className="action-icon">📋</span>
-              <div className="action-text">
+            <div className="util-item">
+              <i className="fa-solid fa-truck-fast"></i>
+              <div className="util-text">
                 <span>Tra cứu</span>
-                <span className="sub-text">đơn hàng</span>
+                <span>đơn hàng</span>
               </div>
             </div>
-
-            <div className="action-item">
-              <span className="action-icon">🎫</span>
-              <div className="action-text">
-                <span>Khuyến mãi</span>
+            <div className="util-item">
+              <i className="fa-solid fa-percent"></i>
+              <div className="util-text">
+                <span>Khuyến</span>
+                <span>mãi</span>
               </div>
             </div>
-
-            <div className="action-item">
-              <span className="action-icon">🛒</span>
-              <div className="action-text">
-                <span>Giỏ hàng</span>
+            <Link to="#" className="util-item" style={{ textDecoration: 'none', color: 'inherit' }}>
+              <i className="fa-solid fa-cart-shopping"></i>
+              <div className="util-text">
+                <span>Giỏ</span>
+                <span>hàng</span>
               </div>
-            </div>
+            </Link>
           </div>
 
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
