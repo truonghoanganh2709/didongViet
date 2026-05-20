@@ -1,0 +1,45 @@
+# =========================
+# Backend
+# =========================
+backend/node_modules/
+backend/dist/
+backend/build/
+backend/.env
+backend/logs/
+backend/*.log
+
+# =========================
+# Frontend
+# =========================
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+frontend/.env
+frontend/.next/
+frontend/out/
+
+# =========================
+# Common
+# =========================
+.vscode/
+.idea/
+
+.DS_Store
+Thumbs.db
+
+coverage/
+*.log
+npm-debug.log*
+
+# =========================
+# Python (nếu có)
+# =========================
+__pycache__/
+*.pyc
+venv/
+
+# =========================
+# Temp
+# =========================
+tmp/
+temp/
