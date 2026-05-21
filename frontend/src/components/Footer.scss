@@ -3,6 +3,9 @@
   border-top: 1px solid #eaeaea;
   font-family: Arial, sans-serif;
   color: #333;
+  
+  /* 🌟 THÊM LỆNH NÀY ĐỂ ÉP TOÀN BỘ FOOTER CĂN TRÁI 🌟 */
+  text-align: left; 
 
   .container {
     max-width: 1200px;
@@ -166,7 +169,7 @@
 
       @media (max-width: 768px) {
         flex-direction: column;
-        text-align: center;
+        text-align: center; /* Giữ chữ phần này căn giữa trên điện thoại cho đẹp */
       }
 
       .company-text {

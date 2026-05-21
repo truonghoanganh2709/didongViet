@@ -2,6 +2,9 @@
   padding: 20px 0 50px;
   background-color: #f8f9fa;
   font-family: Arial, sans-serif;
+  
+  /* 🌟 BÍ THUẬT ÉP CĂN TRÁI TOÀN BỘ TRANG CHI TIẾT SP 🌟 */
+  text-align: left;
 
   .container {
     max-width: 1200px;
@@ -247,22 +250,21 @@
       color: #d70018; 
       margin: 0 0 25px 0;
       text-transform: uppercase;
-      text-align: left; /* Căn trái tiêu đề lớn */
+      text-align: left;
     }
 
     .specs-table-two-cols {
       display: flex;
-      gap: 40px; /* Khoảng cách giữa 2 cột lớn */
-      text-align: left; /* Đảm bảo toàn bộ chữ bên trong căn trái */
+      gap: 40px; 
+      text-align: left; 
 
-      /* Responsive: Trên màn hình điện thoại thì cho nó xếp dọc lại 1 cột */
       @media (max-width: 768px) {
         flex-direction: column;
         gap: 0;
       }
 
       .specs-col {
-        flex: 1; /* Mỗi cột chiếm 50% chiều rộng */
+        flex: 1; 
 
         .spec-group {
           margin-bottom: 25px;
@@ -289,11 +291,11 @@
               border-bottom: 1px solid #f0f0f0;
 
               &:nth-child(odd) {
-                background-color: #f8f9fa; /* Màu nền xen kẽ ngựa vằn */
+                background-color: #f8f9fa; 
               }
 
               .spec-name {
-                width: 45%; /* Chỉnh lại tỷ lệ cho vừa vặn khi chia 2 cột */
+                width: 45%; 
                 font-weight: 500;
               }
 
