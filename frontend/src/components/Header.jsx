@@ -1,132 +1,118 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, NavLink } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext'
+import { useCart } from '../context/CartContext'
+import { categories } from '../data/products'
 import './Header.scss'
 
 const Header = () => {
-  // ĐÂY LÀ "CÔNG TẮC": Quản lý trạng thái Ẩn/Hiện của menu
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const { user, isAuthenticated, logout } = useAuth()
+  const { totalQuantity } = useCart()
 
-  // Hàm này sẽ chạy khi bạn bấm vào nút Danh mục
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
+  const handleLogout = async () => {
+    await logout()
   }
-
-  const categories = [
-    { icon: '📱', name: 'Điện thoại' },
-    { icon: '💻', name: 'Tablet' },
-    { icon: '🍏', name: 'Mac' },
-    { icon: '🔁', name: 'Máy cũ giá rẻ' },
-    { icon: '🔌', name: 'Phụ kiện' },
-    { icon: '⌚', name: 'Đồng hồ' },
-    { icon: '🎧', name: 'Âm thanh' },
-    { icon: '📺', name: 'Điện máy, Gia dụng' },
-    { icon: '🍎', name: 'Apple (AAR)' },
-    { icon: '🚲', name: 'Xe điện' },
-    { icon: '🖥️', name: 'Màn hình, Tivi' },
-    { icon: '🔄', name: 'Thu cũ đổi mới' },
-    { icon: '🏷️', name: 'Khuyến mãi' },
-    { icon: '📰', name: 'Công nghệ 24H' },
-  ]
 
   return (
     <header className="header">
-      {/* Thanh đỏ phụ ở trên cùng */}
       <div className="header__top">
         <div className="container">
-          <span>🔄 Thu Cũ Đổi Mới</span>
-          <span>💲 Trả Trước 0đ Trả Góp 0%</span>
-          <span>🛡️ Bảo Hành 100% Đổi Mới</span>
+          <span>Thu cũ đổi mới trợ giá tốt</span>
+          <span>Trả góp 0% qua thẻ</span>
+          <span>Bảo hành rõ ràng, đổi trả nhanh</span>
         </div>
       </div>
 
-      {/* Thanh đỏ chính */}
       <div className="header__main">
         <div className="container header__main-content">
-          
-          {/* 1. Logo */}
-          <div className="logo">
-            <Link to="/">
-              <span className="logo-main">didongviet.vn</span>
-              <span className="logo-sub">CHUYỂN GIAO GIÁ TRỊ VƯỢT TRỘI</span>
-            </Link>
-          </div>
+          <Link className="logo logo--badge" to="/" aria-label="MobiZone">
+            <img src="/images/logos/mobizone-logo.webp" alt="MobiZone" />
+          </Link>
 
-          {/* 2. KHU VỰC DANH MỤC */}
           <div className="category-area">
-            {/* Nút bấm đã được gắn sự kiện onClick */}
-            <button 
-              className={`btn-category ${isMenuOpen ? 'active' : ''}`} 
-              onClick={toggleMenu}
+            <button
+              className={`btn-category ${isMenuOpen ? 'active' : ''}`}
+              onClick={() => setIsMenuOpen((value) => !value)}
+              type="button"
             >
-              <span className="icon">🎛️</span>
+              <span className="icon">☰</span>
               <span className="text">Danh mục</span>
             </button>
 
-            {/* Bảng Menu xổ xuống (Chỉ hiện ra khi isMenuOpen == true) */}
             {isMenuOpen && (
-              <div className="header__dropdown-menu">
-                <ul>
-                  {categories.map((item, index) => (
-                    <li key={index}>
-                      <div className="menu-item-left">
-                        <span className="icon">{item.icon}</span>
-                        <span className="text">{item.name}</span>
-                      </div>
-                      <span className="arrow">›</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <nav className="header__dropdown-menu" aria-label="Danh mục sản phẩm">
+                {categories.map((category) => (
+                  <Link
+                    key={category}
+                    to={`/products?category=${encodeURIComponent(category)}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span>{category}</span>
+                    <span>›</span>
+                  </Link>
+                ))}
+              </nav>
             )}
           </div>
-          
-          {/* 3. Thanh tìm kiếm */}
-          <div className="search-bar">
-            <input type="text" placeholder="Bạn muốn tìm gì..." />
-            <button className="search-btn">🔍</button>
-          </div>
-          
-          {/* 4. Cụm 5 nút tiện ích */}
-          <div className="header-actions">
-            <div className="action-item">
-              <span className="action-icon">📞</span>
-              <div className="action-text">
-                <span>Đặt hàng</span>
-                <span className="sub-text">1800 6018</span>
-              </div>
-            </div>
 
-            <div className="action-item">
-              <span className="action-icon">🏪</span>
-              <div className="action-text">
-                <span>Cửa hàng</span>
-                <span className="sub-text">gần bạn</span>
-              </div>
-            </div>
+          <form className="search-bar">
+            <input type="search" placeholder="Tìm điện thoại, laptop, phụ kiện..." />
+            <button className="search-btn" type="submit" aria-label="Tìm kiếm">
+              🔍
+            </button>
+          </form>
 
-            <div className="action-item">
-              <span className="action-icon">📋</span>
-              <div className="action-text">
+          <nav className="header-actions" aria-label="Tiện ích">
+            <a className="action-item" href="tel:18006018">
+              <span className="action-icon">☎</span>
+              <span className="action-text">
+                <span>Hotline</span>
+                <strong>1800 6018</strong>
+              </span>
+            </a>
+            <NavLink className="action-item" to="/order-lookup">
+              <span className="action-icon">▣</span>
+              <span className="action-text">
                 <span>Tra cứu</span>
-                <span className="sub-text">đơn hàng</span>
-              </div>
-            </div>
-
-            <div className="action-item">
-              <span className="action-icon">🎫</span>
-              <div className="action-text">
-                <span>Khuyến mãi</span>
-              </div>
-            </div>
-
-            <div className="action-item">
+                <strong>Đơn hàng</strong>
+              </span>
+            </NavLink>
+            {isAuthenticated ? (
+              <button className="action-item action-item--button" type="button" onClick={handleLogout}>
+                <span className="action-icon">👤</span>
+                <span className="action-text">
+                  <span>{user?.name || user?.email}</span>
+                  <strong>Đăng xuất</strong>
+                </span>
+              </button>
+            ) : (
+              <NavLink className="action-item" to="/login">
+                <span className="action-icon">👤</span>
+                <span className="action-text">
+                  <span>Đăng nhập</span>
+                  <strong>Tài khoản</strong>
+                </span>
+              </NavLink>
+            )}
+            <NavLink className="action-item action-item--cart" to="/cart">
               <span className="action-icon">🛒</span>
-              <div className="action-text">
+              <span className="action-text">
                 <span>Giỏ hàng</span>
-              </div>
-            </div>
-          </div>
+                <strong>{totalQuantity} sản phẩm</strong>
+              </span>
+            </NavLink>
+          </nav>
+        </div>
+      </div>
 
+      <div className="header__nav">
+        <div className="container">
+          {categories.map((category) => (
+            <NavLink key={category} to={`/products?category=${encodeURIComponent(category)}`}>
+              {category}
+            </NavLink>
+          ))}
         </div>
       </div>
     </header>

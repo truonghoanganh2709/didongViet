@@ -1,200 +1,268 @@
 @use '../styles/variables' as *;
 
 .header {
-  position: relative; // Thiết lập mốc không gian cho Header
-  z-index: 9999;      // Ép Header nổi lên lớp cao nhất, đè lên mọi Banner ở dưới
+  background: $white;
+  box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 
   &__top {
-    background-color: #b80011;
+    background: #b80011;
     color: $white;
     font-size: 12px;
     padding: 6px 0;
-    
+
     .container {
       display: flex;
+      gap: 26px;
       justify-content: center;
-      gap: 40px;
-      font-weight: 500;
+      line-height: 1.3;
     }
   }
 
   &__main {
-    background-color: $primary-color;
+    background: $primary-color;
     padding: 12px 0;
+  }
 
-    &-content {
-      display: flex;
+  &__main-content {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 210px auto minmax(260px, 1fr) auto;
+    gap: 14px;
+  }
+
+  .logo {
+    color: $white;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+  }
+
+  .logo--badge {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    justify-content: center;
+    min-height: 62px;
+    overflow: visible;
+    padding: 0;
+    width: 210px;
+  }
+
+  .logo img {
+    height: 58px;
+    max-width: 100%;
+    object-fit: contain;
+    width: auto;
+  }
+
+  .category-area {
+    position: relative;
+  }
+
+  .btn-category {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.18);
+    border: 0;
+    border-radius: 8px;
+    color: $white;
+    cursor: pointer;
+    display: flex;
+    font-weight: 800;
+    gap: 8px;
+    padding: 11px 13px;
+
+    &:hover,
+    &.active {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  &__dropdown-menu {
+    background: $white;
+    border-radius: 10px;
+    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.18);
+    display: grid;
+    left: 0;
+    min-width: 230px;
+    padding: 8px;
+    position: absolute;
+    top: calc(100% + 12px);
+
+    a {
       align-items: center;
-      justify-content: space-between;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 15px;
-      gap: 12px;
-    }
-
-    .logo a {
+      border-radius: 8px;
+      color: #111827;
       display: flex;
-      flex-direction: column;
+      font-size: 14px;
+      font-weight: 700;
+      justify-content: space-between;
+      padding: 10px 12px;
       text-decoration: none;
-      color: $white;
-      
-      .logo-main {
-        font-size: 24px;
-        font-weight: 800;
-        line-height: 1;
-      }
-      .logo-sub {
-        font-size: 8px;
-        font-weight: 600;
-        letter-spacing: 0.3px;
-        margin-top: 2px;
-        opacity: 0.9;
+
+      &:hover {
+        background: #fff1f2;
+        color: $primary-color;
       }
     }
+  }
 
-    // Khu vực danh mục phải là relative để làm mốc cho cái menu lơ lửng
+  .search-bar {
+    align-items: center;
+    background: $white;
+    border-radius: 999px;
+    display: flex;
+    min-width: 0;
+    padding: 4px 5px 4px 18px;
+
+    input {
+      border: 0;
+      color: #111827;
+      flex: 1;
+      font-size: 14px;
+      font-weight: 500;
+      min-width: 0;
+      outline: 0;
+    }
+  }
+
+  .search-btn {
+    align-items: center;
+    background: #fff1f2;
+    border: 0;
+    border-radius: 50%;
+    color: $primary-color;
+    cursor: pointer;
+    display: flex;
+    height: 34px;
+    justify-content: center;
+    width: 34px;
+  }
+
+  .header-actions {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+  }
+
+  .action-item {
+    align-items: center;
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    color: $white;
+    cursor: pointer;
+    display: flex;
+    font-family: inherit;
+    gap: 7px;
+    padding: 7px 9px;
+    text-decoration: none;
+
+    &:hover,
+    &.active {
+      background: rgba(255, 255, 255, 0.18);
+    }
+  }
+
+  .action-icon {
+    font-size: 18px;
+  }
+
+  .action-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 11px;
+    line-height: 1.2;
+
+    strong {
+      font-size: 12px;
+    }
+  }
+
+  &__nav {
+    border-bottom: 1px solid #e5e7eb;
+
+    .container {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      padding-top: 8px;
+    }
+
+    a {
+      background: #f3f4f6;
+      border-radius: 999px;
+      color: #374151;
+      flex: 0 0 auto;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 8px 12px;
+      text-decoration: none;
+
+      &:hover,
+      &.active {
+        background: #fff1f2;
+        color: $primary-color;
+      }
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  .header {
+    &__main-content {
+      grid-template-columns: 1fr auto;
+    }
+
+    .logo--badge {
+      min-height: 54px;
+      width: min(100%, 190px);
+    }
+
     .category-area {
-      position: relative;
-
-      .btn-category {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background-color: rgba(255, 255, 255, 0.2); 
-        border: none;
-        color: $white;
-        padding: 8px 16px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 13px;
-        transition: 0.2s;
-
-        &:hover, &.active {
-          background-color: rgba(255, 255, 255, 0.35);
-        }
-      }
-
-      // Đã sửa lại đúng tên class và lồng đúng vị trí!
-      .header__dropdown-menu {
-        position: absolute;
-        top: calc(100% + 15px); // Cách nút danh mục 15px xuống dưới
-        left: 0;
-        width: 240px;
-        background-color: $white;
-        border-radius: 10px;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15); // Đổ bóng cho nổi hẳn lên
-        padding: 8px 0;
-        z-index: 999; // Lên đỉnh xã hội, đè lên mọi thứ ở dưới (bên trong header)
-
-        ul {
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          
-          li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 8px 16px;
-            cursor: pointer;
-            font-size: 13px;
-            font-weight: 500;
-            color: #333;
-            transition: all 0.15s ease;
-
-            .menu-item-left {
-              display: flex;
-              align-items: center;
-              gap: 10px;
-              
-              .icon {
-                font-size: 16px;
-                width: 20px;
-                text-align: center;
-              }
-            }
-
-            .arrow {
-              color: #ccc;
-              font-size: 16px;
-            }
-
-            &:hover {
-              background-color: #fce8e8;
-              color: $primary-color;
-              
-              .arrow {
-                color: $primary-color;
-              }
-            }
-          }
-        }
-      }
+      order: 3;
     }
 
     .search-bar {
-      display: flex;
-      align-items: center;
-      background-color: $white;
-      border-radius: 25px;
-      padding: 4px 4px 4px 18px;
-      width: 28%; 
-      
-      input {
-        width: 100%;
-        border: none;
-        outline: none;
-        font-size: 13px;
-        color: #333;
-      }
-      
-      .search-btn {
-        background-color: #fce8e8; 
-        border: none;
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        color: $primary-color;
-        font-size: 13px;
-        transition: 0.2s;
-
-        &:hover {
-          background-color: #fbd3d3;
-        }
-      }
+      grid-column: 1 / -1;
+      order: 4;
     }
 
     .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      justify-content: flex-end;
+    }
 
-      .action-item {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        color: $white;
-        cursor: pointer;
-        transition: opacity 0.2s;
+    .action-item:not(.action-item--cart) .action-text {
+      display: none;
+    }
+  }
+}
 
-        &:hover { opacity: 0.85; }
-        .action-icon { font-size: 18px; }
-        
-        .action-text {
-          display: flex;
-          flex-direction: column;
-          font-size: 12px;
-          font-weight: 500;
-          line-height: 1.2;
+@media (max-width: 640px) {
+  .header {
+    &__top .container {
+      justify-content: flex-start;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
 
-          .sub-text { font-size: 11px; opacity: 0.85; }
-        }
-      }
+    .logo--badge {
+      min-height: 46px;
+      padding: 0;
+      width: min(100%, 154px);
+    }
+
+    .action-text {
+      display: none;
+    }
+
+    .logo img {
+      height: 44px;
     }
   }
 }

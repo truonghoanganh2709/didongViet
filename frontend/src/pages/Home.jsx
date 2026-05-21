@@ -1,69 +1,106 @@
-import React from 'react'
+import { useEffect, useState } from 'react'
 import HeroSection from '../components/HeroSection'
 import QuickLinks from '../components/QuickLinks'
 import BestSellers from '../components/BestSellers'
 import ProductSection from '../components/ProductSection'
 import Footer from '../components/Footer'
+import { products as mockProducts } from '../data/products'
+import { productService } from '../services/productService'
+import { normalizeProducts } from '../utils/productMapper'
+
+const byCategory = (products, category, limit = 5) =>
+  products.filter((product) => product.category === category).slice(0, limit)
 
 const Home = () => {
-  // 1. Data mẫu cho 1 ô sản phẩm
-  const sampleProduct = {
-    img: '/images/brand-1.png',
-    name: 'Sản phẩm chính hãng',
-    newPrice: '25.490.000 ₫',
-    oldPrice: '31.990.000 ₫',
-    discount: '5%',
-    rating: '4.00'
-  }
+  const [products, setProducts] = useState(mockProducts)
 
-  // 2. Data cho Khối Điện thoại
-  const phoneBlocks = [
-    { title: "iPhone Chính Hãng (Apple Authorized Reseller)", products: Array(5).fill({ ...sampleProduct, name: 'iPhone 17 Pro Max 256GB' }) },
-    { title: "Samsung Chính Hãng", products: Array(5).fill({ ...sampleProduct, name: 'Samsung Galaxy Z Fold7' }) },
-    { title: "OPPO | Xiaomi | TECNO | realme | HONOR Chính Hãng", products: Array(5).fill({ ...sampleProduct, name: 'Xiaomi Redmi Note 15' }) }
-  ]
+  useEffect(() => {
+    let mounted = true
 
-  // 3. Data cho Khối Máy tính & Đồng hồ
-  const gadgetBlocks = [
-    { title: "MacBook & Tablet", products: Array(5).fill({ ...sampleProduct, name: 'MacBook Air M4 13-inch' }) },
-    { title: "Đồng Hồ Thông Minh", products: Array(5).fill({ ...sampleProduct, name: 'Apple Watch Series 11' }) }
-  ]
+    const loadProducts = async () => {
+      try {
+        const data = await productService.getProducts()
+        if (mounted && data.products?.length) {
+          setProducts(normalizeProducts(data.products))
+        }
+      } catch {
+        if (mounted) setProducts(mockProducts)
+      }
+    }
 
-  // 4. Data cho Khối Âm thanh & Gia dụng
-  const accessoryBlocks = [
-    { title: "Âm Thanh", products: Array(5).fill({ ...sampleProduct, name: 'Tai nghe Bluetooth AirPods 4' }) },
-    { title: "Đồ Gia Dụng", products: Array(5).fill({ ...sampleProduct, name: 'Nồi chiên không dầu Bear' }) }
-  ]
+    loadProducts()
 
-  // 5. Data Banner dịch vụ
-  const serviceBanners = [
-    "/images/bot-banner-1.png",
-    "/images/bot-banner-2.png",
-    "/images/bot-banner-3.png",
-    "/images/bot-banner-4.png"
-  ]
+    return () => {
+      mounted = false
+    }
+  }, [])
 
   return (
-    <div className="home-page">
+    <main className="home-page">
       <HeroSection />
       <QuickLinks />
-      <BestSellers />
-      
-      <ProductSection blocks={phoneBlocks} />
-      
-      <ProductSection 
-        topBanner="/images/promo-banner.png" 
-        blocks={gadgetBlocks} 
-      />
-      
-      <ProductSection 
-        topBanner="/images/promo-banner-2.png" 
-        blocks={accessoryBlocks} 
-        bottomBanners={serviceBanners}
+      <BestSellers products={products} />
+
+      <ProductSection
+        title="Flash Sale hôm nay"
+        subtitle="Giá tốt cho điện thoại, phụ kiện và hàng công nghệ chính hãng"
+        products={products.slice().sort((a, b) => b.discount - a.discount).slice(0, 10)}
+        category="Khuyến mãi"
       />
 
+      <ProductSection
+        title="iPhone nổi bật"
+        subtitle="Máy mới chính hãng, hỗ trợ thu cũ đổi mới"
+        products={byCategory(products, 'iPhone')}
+        category="iPhone"
+      />
+
+      <ProductSection
+        title="Samsung Galaxy nổi bật"
+        subtitle="Flagship, điện thoại gập và dòng A bán chạy"
+        products={byCategory(products, 'Samsung')}
+        category="Samsung"
+      />
+
+      <ProductSection
+        title="Laptop và tablet"
+        subtitle="Thiết bị học tập, làm việc và giải trí"
+        products={[...byCategory(products, 'Laptop', 3), ...byCategory(products, 'iPad / Tablet', 2)]}
+        category="Laptop"
+      />
+
+      <ProductSection
+        title="Phụ kiện nên mua kèm"
+        subtitle="Sạc nhanh, tai nghe, loa và pin dự phòng"
+        products={byCategory(products, 'Phụ kiện')}
+        category="Phụ kiện"
+      />
+
+      <section className="tech-news">
+        <div className="container">
+          <div className="tech-news__header">
+            <h2>Tin tức công nghệ</h2>
+            <p>Cập nhật xu hướng mua sắm, mẹo dùng điện thoại và laptop.</p>
+          </div>
+          <div className="tech-news__grid">
+            <article>
+              <strong>Cách chọn điện thoại phù hợp trong tầm giá 10 triệu</strong>
+              <span>So sánh màn hình, pin, camera và chính sách bảo hành trước khi mua.</span>
+            </article>
+            <article>
+              <strong>Nên mua laptop mỏng nhẹ hay laptop hiệu năng?</strong>
+              <span>Gợi ý lựa chọn theo nhu cầu học tập, văn phòng và sáng tạo nội dung.</span>
+            </article>
+            <article>
+              <strong>Phụ kiện nào nên mua kèm điện thoại mới?</strong>
+              <span>Sạc nhanh, cáp, ốp lưng và tai nghe giúp trải nghiệm trọn vẹn hơn.</span>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <Footer />
-    </div>
+    </main>
   )
 }
 
