@@ -1,0 +1,50 @@
+.figma-categories {
+  max-width: 1240px;
+  margin: 0 auto 24px;
+  padding: 0 16px;
+}
+
+.figma-categories__inner {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+}
+
+.figma-categories__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: #222;
+  margin-bottom: 16px;
+  padding-left: 12px;
+  border-left: 4px solid #d70018;
+}
+
+.figma-categories__grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 16px;
+}
+
+.figma-categories__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: #333;
+  transition: transform 0.2s;
+}
+
+.figma-categories__item:hover {
+  transform: translateY(-2px);
+  color: #d70018;
+}
+
+@media (max-width: 768px) {
+  .figma-categories__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

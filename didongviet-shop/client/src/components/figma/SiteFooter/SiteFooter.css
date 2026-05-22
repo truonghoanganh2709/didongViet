@@ -1,0 +1,77 @@
+.figma-footer {
+  background: #1a1a1a;
+  color: #bbb;
+  margin-top: 40px;
+}
+
+.figma-footer__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px 16px 20px;
+}
+
+.figma-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.figma-footer__grid h4 {
+  color: #fff;
+  margin-bottom: 14px;
+  font-size: 14px;
+}
+
+.figma-footer__grid p {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-top: 12px;
+}
+
+.figma-footer__hotline {
+  color: #d70018;
+  font-weight: 700;
+}
+
+.figma-footer__grid ul {
+  list-style: none;
+}
+
+.figma-footer__grid li {
+  margin-bottom: 8px;
+}
+
+.figma-footer__grid a:hover {
+  color: #fff;
+}
+
+.figma-footer__social {
+  display: flex;
+  gap: 10px;
+}
+
+.figma-footer__social a {
+  width: 36px;
+  height: 36px;
+  background: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 700;
+}
+
+.figma-footer__copy {
+  text-align: center;
+  font-size: 12px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}
+
+@media (max-width: 768px) {
+  .figma-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

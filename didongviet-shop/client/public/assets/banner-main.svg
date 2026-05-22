@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#D70018"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" fill="url(#bg)"/>
+  <text x="80" y="140" fill="white" font-family="Arial,sans-serif" font-size="48" font-weight="700">iPhone 16 Series</text>
+  <text x="80" y="190" fill="#fecaca" font-family="Arial,sans-serif" font-size="22">Tr£ góp 0% · Thu ci Õi mÛi</text>
+  <rect x="80" y="220" width="180" height="48" rx="24" fill="white"/>
+  <text x="170" y="250" text-anchor="middle" fill="#D70018" font-family="Arial,sans-serif" font-size="16" font-weight="700">Mua ngay</text>
+  <ellipse cx="920" cy="200" rx="120" ry="200" fill="rgba(255,255,255,0.08)"/>
+  <rect x="820" y="80" width="140" height="260" rx="20" fill="rgba(255,255,255,0.15)" stroke="rgba(255,255,255,0.3)" stroke-width="2"/>
+</svg>

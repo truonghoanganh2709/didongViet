@@ -1,0 +1,23 @@
+.form {
+  display: flex;
+  width: 100%;
+  max-width: 560px;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 14px;
+  border: 2px solid var(--color-primary);
+  border-right: none;
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.btn {
+  padding: 10px 20px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  cursor: pointer;
+  font-weight: 600;
+}

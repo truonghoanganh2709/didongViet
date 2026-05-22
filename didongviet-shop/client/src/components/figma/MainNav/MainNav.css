@@ -1,0 +1,50 @@
+.figma-nav {
+  background: #222;
+}
+
+.figma-nav__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+}
+
+.figma-nav__menu {
+  background: #d70018;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border-radius: 2px;
+  margin-right: 8px;
+}
+
+.figma-nav__list {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  list-style: none;
+}
+
+.figma-nav__list a {
+  display: block;
+  padding: 12px 14px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.figma-nav__list a:hover {
+  color: #fecaca;
+}
+
+.figma-nav__hot {
+  color: #fbbf24 !important;
+}

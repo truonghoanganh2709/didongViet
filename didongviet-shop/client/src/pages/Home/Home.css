@@ -1,0 +1,41 @@
+.home-page {
+  min-height: 100vh;
+  background: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+}
+
+.home-page__main {
+  flex: 1;
+}
+
+.home-page__loading {
+  max-width: 1240px;
+  margin: 40px auto;
+  padding: 24px;
+  text-align: center;
+  color: #888;
+  background: #fff;
+  border-radius: 8px;
+}
+
+.home-page__promo {
+  max-width: 1240px;
+  margin: 0 auto 32px;
+  padding: 0 16px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.home-page__promo img {
+  width: 100%;
+  border-radius: 8px;
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .home-page__promo {
+    grid-template-columns: 1fr;
+  }
+}

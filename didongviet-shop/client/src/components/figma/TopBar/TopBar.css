@@ -1,0 +1,46 @@
+.figma-topbar {
+  background: #f5f5f5;
+  border-bottom: 1px solid #ebebeb;
+  font-size: 12px;
+  color: #555;
+}
+
+.figma-topbar__inner {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.figma-topbar__left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.figma-topbar__left strong {
+  color: #d70018;
+}
+
+.figma-topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.figma-topbar__right a:hover {
+  color: #d70018;
+}
+
+.figma-topbar__sep {
+  color: #ccc;
+}
+
+@media (max-width: 768px) {
+  .figma-topbar__right {
+    display: none;
+  }
+}

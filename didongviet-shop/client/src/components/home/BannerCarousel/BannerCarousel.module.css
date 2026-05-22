@@ -1,0 +1,39 @@
+.carousel {
+  margin-bottom: 32px;
+}
+
+.slide {
+  border-radius: 12px;
+  padding: 48px 32px;
+  color: white;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow);
+}
+
+.slide h2 {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+
+.dots {
+  display: flex;
+  gap: 8px;
+}
+
+.dots button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+}
+
+.dots .active {
+  background: white;
+  width: 24px;
+  border-radius: 6px;
+}
