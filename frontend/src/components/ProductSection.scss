@@ -1,0 +1,255 @@
+.product-section {
+  padding: 15px 0;
+
+  .section-top-banner {
+    margin-bottom: 20px;
+    img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
+  }
+
+  .category-block {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    margin-bottom: 20px;
+
+    .block-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+
+      .category-title {
+        color: #d70018; 
+        font-size: 22px;
+        font-weight: 800;
+        margin: 0;
+      }
+
+      .block-actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+
+        .view-all-btn {
+          padding: 6px 14px;
+          background: #fff;
+          border: 1px solid #e0e0e0;
+          border-radius: 6px;
+          color: #333;
+          font-size: 13.5px;
+          text-decoration: none;
+          transition: all 0.2s;
+          white-space: nowrap;
+
+          &:hover {
+            border-color: #d70018;
+            color: #d70018;
+          }
+        }
+
+        .sub-categories {
+          display: flex;
+          gap: 8px;
+          flex-wrap: wrap;
+
+          .sub-cat-btn {
+            padding: 6px 14px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            color: #444;
+            font-size: 13.5px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+
+            &:hover {
+              border-color: #d70018;
+              color: #d70018;
+            }
+          }
+        }
+      }
+    }
+
+    .slider-wrapper {
+      position: relative;
+      
+      /* THANH CUỘN & KÉO THẢ */
+      .product-track {
+        display: flex;
+        gap: 12px; 
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        padding-bottom: 12px; /* Chừa không gian cho thanh cuộn */
+        cursor: grab;
+
+        &.dragging {
+          cursor: grabbing; 
+          scroll-behavior: auto; // Bỏ smooth khi kéo tay để không bị lag
+          user-select: none; 
+        }
+
+        /* Tùy chỉnh làm đẹp thanh cuộn */
+        &::-webkit-scrollbar {
+          height: 6px; 
+        }
+        &::-webkit-scrollbar-track {
+          background: transparent; 
+        }
+        &::-webkit-scrollbar-thumb {
+          background: #e0e0e0; 
+          border-radius: 10px; 
+          
+          &:hover {
+            background: #d70018; 
+          }
+        }
+      }
+
+      .product-card {
+        flex: 0 0 calc((100% - 48px) / 5); 
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        border-radius: 10px;
+        padding: 15px;
+        display: flex;
+        flex-direction: column;
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+        user-select: none; // Tránh bôi đen nội dung bên trong khi đang kéo thả
+
+        &:hover {
+          box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+          transform: translateY(-2px);
+        }
+
+        .card-tags {
+          display: flex;
+          justify-content: space-between;
+          margin-bottom: 15px;
+
+          span {
+            font-size: 11px;
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+            border: 1px solid #d70018;
+            color: #d70018;
+          }
+          .tag-discount {
+            background-color: #d70018;
+            color: #fff;
+          }
+        }
+
+        .card-image {
+          text-align: center;
+          margin-bottom: 15px;
+          height: 180px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            pointer-events: none; // Tránh việc vô tình bấm giữ ảnh sinh ra hiệu ứng tải xuống của trình duyệt
+          }
+        }
+
+        .card-name {
+          font-size: 14px;
+          color: #333;
+          font-weight: 600;
+          margin: 0 0 10px 0;
+          line-height: 1.4;
+          display: -webkit-box;
+          -webkit-line-clamp: 2;
+          line-clamp: 2; /* Thêm dòng chuẩn chung này để VS Code hết báo vàng */
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+          min-height: 38px;
+        }
+
+        .card-price {
+          display: flex;
+          flex-direction: column;
+          margin-bottom: 10px;
+
+          .price-new {
+            color: #d70018;
+            font-size: 18px;
+            font-weight: 800;
+          }
+
+          .price-old {
+            color: #999;
+            font-size: 13px;
+            text-decoration: line-through;
+            margin-top: 2px;
+          }
+        }
+
+        .card-promo {
+          background-color: #f8f9fa;
+          padding: 8px;
+          border-radius: 6px;
+          margin-bottom: 12px;
+          flex-grow: 1;
+
+          p {
+            margin: 0;
+            font-size: 11.5px;
+            color: #555;
+            line-height: 1.4;
+            
+            strong {
+              color: #d70018;
+            }
+          }
+        }
+
+        .card-rating {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          font-size: 12px;
+
+          .stars {
+            color: #f5b50a;
+            .star-empty {
+              color: #ddd;
+            }
+          }
+          .score {
+            color: #777;
+          }
+        }
+      }
+    }
+  }
+
+  .service-banners {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+
+    .service-banner-item {
+      flex: 1;
+      img {
+        width: 100%;
+        border-radius: 8px;
+        object-fit: cover;
+      }
+    }
+  }
+}
